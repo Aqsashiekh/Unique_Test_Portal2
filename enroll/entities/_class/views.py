@@ -12,21 +12,22 @@ def add_class(request):
             class_name = frm.cleaned_data["class_name"]
             reg = class_model(class_name=class_name)
             reg.save()
-            messages.add_message(request, messages.INFO, 'your Record successfully add.')
+            messages.add_message(request, messages.INFO, "your class delete successfully.")
+
             frm = _Class()
 
             return redirect(reverse("list_class"))
     else:
         frm = _Class()
-        return render(
-            request, "enroll/class/add_class.html", {"form": frm}
-        )
+        return render(request, "enroll/class/add_class.html", {"form": frm})
 
 
 def list_class(request):
     class_list = class_model.objects.all()
+    frm = _Class()
+
     return render(
-        request, "enroll/class/list_class.html", {"class_list": class_list}
+        request, "enroll/class/list_class.html", {"class_list": class_list, "form": frm}
     )
 
 
@@ -34,7 +35,7 @@ def list_class(request):
 def delete_class(request, id):
     class_obj = class_model.objects.get(pk=id)
     class_obj.delete()
-    messages.add_message(request, messages.INFO, 'your class delete successfully.')
+    messages.add_message(request, messages.INFO, {"title": "test", "text": "your class delete successfully."})
 
     return redirect(reverse("list_class"))
 
@@ -46,18 +47,14 @@ def update_class(request, id):
         frm = _Class(request.POST, instance=class_obj)
         if frm.is_valid():
             frm.save()
-        messages.add_message(request, messages.INFO, 'your class update successfully.')
+            messages.add_message(request, messages.INFO, {"title": "test", "text": "your class delete successfully."})
 
         return redirect(reverse("list_class"))
 
     else:
         class_obj = class_model.objects.get(pk=id)
         frm = _Class(instance=class_obj)
-        
-    messages.add_message(request, messages.INFO, 'your class delete successfully.')
+
+    messages.add_message(request, messages.INFO, "your class delete successfully.")
 
     return render(request, "enroll/class/update_class.html", {"form": frm})
-
-
-
-

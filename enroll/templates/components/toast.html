@@ -1,0 +1,48 @@
+<!--begin::Toast-->
+<div
+  id="kt_docs_toast_stack_container"
+  class="toast-container position-fixed end-0 p-3 z-index-3" style="top: 70px"
+>
+{% for message in messages %}
+
+  <div
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    data-kt-docs-toast="stack"
+  >
+    <div class="toast-header">
+      <span class="svg-icon svg-icon-2 svg-icon-primary me-3">...</span>
+      <strong class="me-auto">{{ message.tags }}</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body">{{ message }}</div>
+  </div>
+  {% endfor %}
+</div>
+
+<!--end::Toast-->
+
+<script>
+  // Select elements
+  const container = document.getElementById("kt_docs_toast_stack_container");
+  const targetElement = document.querySelector('[data-kt-docs-toast="stack"]'); // Use CSS class or HTML attr to avoid duplicating ids
+
+  // Remove base element markup
+  targetElement.parentNode.removeChild(targetElement);
+
+  // Create new toast element
+  const newToast = targetElement.cloneNode(true);
+  container.append(newToast);
+
+  // Create new toast instance --- more info: https://getbootstrap.com/docs/5.1/components/toasts/#getorcreateinstance
+  const toast = bootstrap.Toast.getOrCreateInstance(newToast);
+
+  // Toggle toast to show --- more info: https://getbootstrap.com/docs/5.1/components/toasts/#show
+  toast.show();
+</script>

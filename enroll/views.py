@@ -6,24 +6,8 @@ from .models import User
 # Create your views here.
 
 # This function will add new Item and Show All Items
-def addstudent(request):
-  if request.method == 'POST':
-    fm = StudentRegistration(request.POST)
-    if fm.is_valid():
-      nm = fm.cleaned_data['user_name']
-      pw = fm.cleaned_data['password']
-      ut = fm.cleaned_data['user_type']
-      cl= fm.cleaned_data['class_id']
-      pn  = fm.cleaned_data['phone_number']
-      em = fm.cleaned_data['email']
-      ad = fm.cleaned_data['address']
-      reg = User(user_name=nm, password=pw, user_type=ut, class_id=cl, phone_number=pn, email=em, address=ad)
-      reg.save()
-      fm = StudentRegistration()
-  else:
-      fm = StudentRegistration()
-  stud = User.objects.all()
-  return render(request, 'enroll/addstudent.html', {'form':fm, 'stu':stud})
+def load_index(request):
+  return render(request, 'enroll/index.html', {})
 
 # This function will update/Edit
 

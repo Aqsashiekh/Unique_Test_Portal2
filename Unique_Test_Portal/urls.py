@@ -20,7 +20,7 @@ from enroll.entities._class.urls import class_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.addstudent, name="addstudent"),
+    path("", views.load_index, name="load_index"),
     
     path("deletes/<int:id>/", views.deletestudent, name="deletestudent"),
     path("<int:id>/", views.updatestudent, name="updatestu"),

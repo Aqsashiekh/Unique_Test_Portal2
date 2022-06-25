@@ -7,5 +7,5 @@ class _Class(forms.ModelForm):
         field = ['class_name']
         exclude = ()
         widgets = {
-            'class_name':forms.TextInput(attrs={'class':'form-control'}),
+            'class_name': forms.TextInput(attrs={'class':'form-control'}),
         }
