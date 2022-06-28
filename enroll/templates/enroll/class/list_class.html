@@ -16,14 +16,18 @@
     class="table table-striped border rounded gy-5 gs-7"
   >
     <thead>
-      <tr class="fw-bolder fs-6 text-gray-800 px-7">
+       <tr class="fw-bolder fs-6 text-gray-800 px-7">
         <th class="min-w-300px" data-priority="1">Name</th>
+        <th class="min-w-300px" data-priority="1">Actions</th>
       </tr>
     </thead>
     <tbody>
       {% for cls in class_list %}
       <tr>
         <td>{{ cls.class_name }}</td>
+        <td>{{ cls.Actions }}  <a href="{% url 'update_class' cls.id %}" class="btn 
+          btn-warning btn-sm">Edit</a>  
+          <a href="{% url 'delete_class' cls.id %}" class="btn btn-danger btn-sm" title = "delete Class" onclick= "return conferm('Are you sure you want to delete')" >Delete</a></td>
       </tr>
       {% endfor %}
     </tbody>

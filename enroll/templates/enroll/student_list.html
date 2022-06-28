@@ -1,0 +1,205 @@
+{% extends 'enroll/base.html' %} {% block content %}
+<!-- <div class="col-10 offset-1">
+  <h4 class="text-center alert alert-info">Show Student</h4> -->
+  <div class="col-11 offset-1">
+    <a
+      href="#"
+      class="btn btn-sm btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#kt_modal_add_class"
+      >Add Student</a>
+  {% if stu %}
+  <table
+    id="kt_datatable_example_6" class="table table-striped border rounded gy-5 gs-7">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Password</th>
+          <th scope="col">User Type</th>
+          <th scope="col">Class ID</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Address</th>
+          <th scope="col">Actionss</th>
+        </tr>
+      </thead>
+      <tbody>
+         {% for st in stu %}
+         <tr>
+          <th scope="row">{{st.id}}</th>
+          <td>{{st.user_name}}</td>
+          <td>{{st.email}}</td>
+          <td>{{st.password}}</td>
+          <td>{{st.user_type}}</td>
+          <td>{{st.class_id}}</td>
+          <td>{{st.phone_number}}</td>
+          <td>{{st.address}}</td>
+          <td>
+          <a href="{% url 'updatestudent' st.id %}" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_student">Edit</a>
+          <form action="{% url 'deletestudent' st.id %}"
+          method="post" class="d-inline"> {% csrf_token %}
+          <input type="submit" class="btn btn-danger " onclick="return confirm('Are you sure you want to delete')" value="Delete">
+          </form>
+        </td>
+         </tr>
+         {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+  <h4 class = "text-center alert alert-warning">No Records</h4>
+  {% endif %}
+  <script>
+    $("#kt_datatable_example_6").DataTable({
+      responsive: true,
+    });
+  </script>
+  <div
+  class="modal fade"
+  id="kt_modal_add_class"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <!--begin::Modal dialog-->
+  <div class="modal-dialog modal-dialog-centered mw-900px">
+    <!--begin::Modal content-->
+    <div class="modal-content">
+      <!--begin::Modal header-->
+      <div class="modal-header">
+        <!--begin::Modal title-->
+        <h2>Add students</h2>
+        <!--end::Modal title-->
+        <!--begin::Close-->
+        <div
+          class="btn btn-sm btn-icon btn-active-color-primary"
+          data-bs-dismiss="modal"
+        >
+          <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+          <span class="svg-icon svg-icon-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <rect
+                opacity="0.5"
+                x="6"
+                y="17.3137"
+                width="16"
+                height="2"
+                rx="1"
+                transform="rotate(-45 6 17.3137)"
+                fill="currentColor"
+              ></rect>
+              <rect
+                x="7.41422"
+                y="6"
+                width="16"
+                height="2"
+                rx="1"
+                transform="rotate(45 7.41422 6)"
+                fill="currentColor"
+              ></rect>
+            </svg>
+          </span>
+          <!--end::Svg Icon-->
+        </div>
+        <!--end::Close-->
+      </div>
+      <!--end::Modal header-->
+      <!--begin::Modal body-->
+      <div class="modal-body py-lg-10 px-lg-10">
+        <form action="{% url 'student_list' %}" method="POST">
+          {% csrf_token %} {{form.as_p}}
+          <input type="submit" class="btn btn-success" value="Add "/>
+        </form>
+      </div>
+      <!--end::Modal body-->
+    </div>
+    <!--end::Modal content-->
+  </div>
+  <!--end::Modal dialog-->
+</div>
+
+<div
+class="modal fade"
+id="kt_modal_update_student"
+tabindex="-1"
+aria-hidden="true"
+>
+<!--begin::Modal dialog-->
+<div class="modal-dialog modal-dialog-centered mw-900px">
+  <!--begin::Modal content-->
+  <div class="modal-content">
+    <!--begin::Modal header-->
+    <div class="modal-header">
+      <!--begin::Modal title-->
+      <h2>Update Students </h2>
+      <!--end::Modal title-->
+      <!--begin::Close-->
+      <div
+        class="btn btn-sm btn-icon btn-active-color-primary"
+        data-bs-dismiss="modal"
+      >
+        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+        <span class="svg-icon svg-icon-1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <rect
+              opacity="0.5"
+              x="6"
+              y="17.3137"
+              width="16"
+              height="2"
+              rx="1"
+              transform="rotate(-45 6 17.3137)"
+              fill="currentColor"
+            ></rect>
+            <rect
+              x="7.41422"
+              y="6"
+              width="16"
+              height="2"
+              rx="1"
+              transform="rotate(45 7.41422 6)"
+              fill="currentColor"
+            ></rect>
+          </svg>
+        </span>
+        <!--end::Svg Icon-->
+      </div>
+      <!--end::Close-->
+    </div>
+    <!--end::Modal header-->
+    <!--begin::Modal body-->
+    <div class="modal-body py-lg-10 px-lg-10">
+      <div class="row">
+        <div class="col-sm-8 offset-2">
+            <h4 class="'alert alert-info">Update Student</h4>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" class="btn btn-success" value="Update">
+                <a href="{% url 'student_list' %}" class="btn btn-info">Back to Home</a>
+            </form>
+        </div>
+    
+    </div>
+    </div>
+    <!--end::Modal body-->
+  </div>
+  <!--end::Modal content-->
+</div>
+<!--end::Modal dialog-->
+</div>
+</div>
+</div>
+
+{% endblock content %}
